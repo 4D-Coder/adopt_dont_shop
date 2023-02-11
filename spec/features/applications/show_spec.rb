@@ -44,6 +44,9 @@ RSpec.describe 'applications show page features' do
           save_and_open_page
           expect(current_path).to eq("/applications/#{@applicant_1.id}")
 
+          expect(page).to have_content("Norma")
+          expect("Pets Returned by Search").to appear_before("Norma")
+
         end
       end
 
