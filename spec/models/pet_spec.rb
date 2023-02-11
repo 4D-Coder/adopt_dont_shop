@@ -41,5 +41,14 @@ RSpec.describe Pet, type: :model do
         expect(@pet_3.shelter_name).to eq(@shelter_1.name)
       end
     end
+
+    describe '.search(input)' do 
+      it 'returns the matching pet based on the name' do 
+
+        input = "Mr. Pirate"
+        
+        expect(Pet.search(input)).to eq([@pet_1])
+      end
+    end
   end
 end
