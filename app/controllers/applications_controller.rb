@@ -1,9 +1,12 @@
 class ApplicationsController < ApplicationController
   def show
-    require 'pry'; binding.pry
-    @pets = flash[:pets]
-    require 'pry'; binding.pry
     @applicant = Application.find(params[:id])
+    if params[:search]
+      @pets= Pet.search(params[:search])
+      require 'pry'; binding.pry
+
+    end 
+    @name = "Hady"
   end
 
   def new
