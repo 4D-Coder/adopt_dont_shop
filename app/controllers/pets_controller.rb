@@ -2,7 +2,7 @@ class PetsController < ApplicationController
   def index
     if params[:search].present?
       @pets = Pet.search(params[:search])
-      session[:pets] = @pets
+      flash[:pets] = @pets
       redirect_to "/applications/#{params[:applicant_id]}"
 
     else
@@ -21,8 +21,7 @@ class PetsController < ApplicationController
 
   def create
     pet = Pet.new(pet_params)
-
-    if pet.save
+  if pet.save
       redirect_to "/shelters/#{pet_params[:shelter_id]}/pets"
     else
       redirect_to "/shelters/#{pet_params[:shelter_id]}/pets/new"
