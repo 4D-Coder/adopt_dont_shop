@@ -11,20 +11,19 @@
   <p>Description: <%= @applicant.description %></p>
 
   <p>Status of Application: <%= @applicant.status.gsub("_", " ")%>
-
+</section>
+<section>
   <h3>Add a Pet to this Application</h3>
 
   <%= form_with url: "/pets", method: :get do |form| %>
-  <%= form.text_field :search %> 
-  <%= form.hidden_field :applicant_id, value: @applicant.id%>
-  <%= form.submit "Search" %>
-<%end%>
-
-<% if @pets != nil%>
-<h5> Pets Returned by Search </h5>
-<%@pets.each do |pet|  %>
-<%=pet["name"]%><%= button_to "Adopt this Pet", action: get%>
-<%end%>
-<%end%>
-
+    <%= form.text_field :search %> 
+    <%= form.hidden_field :applicant_id, value: @applicant.id%>
+    <%= form.submit "Search" %>
+  <% end %>
+    <h3> Pets Returned by Search </h3>
+  <% if @pets != nil %>
+    <% @pets.each do |pet| %>
+      <%= pet['name'] %>
+    <% end %>
+  <% end %>
 </section>

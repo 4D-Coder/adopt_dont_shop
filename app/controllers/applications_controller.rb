@@ -1,10 +1,11 @@
 class ApplicationsController < ApplicationController
   def show
-    @pets = session[:pets]
+    @pets = flash[:pets]
     @applicant = Application.find(params[:id])
   end
 
-  def new 
+  def new
+
   end
 
   def create 

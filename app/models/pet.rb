@@ -15,6 +15,7 @@ class Pet < ApplicationRecord
   end
 
   def self.search(input)
-    where(name: input)
+    pets = where(name: input)
+    return pets
   end
 end
