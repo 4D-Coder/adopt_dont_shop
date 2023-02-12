@@ -1,6 +1,6 @@
 <section>
   <header>
-    <h2>Applicant TEST10Information</h2>
+    <h2>Applicant Information</h2>
   </header>
 
 <%@pets_show%>
@@ -28,12 +28,12 @@
        <%# local: true %>
     <% end %>
   <% end %>
-  <% binding.pry %>
-  <% if @pets_collection != nil %>
+  <% if @adoptable_pets != nil %>
+  <%binding.pry%>
   <h3> Adoption Requests</h3>
-  <% binding.pry %>
-    <% @pets_collection.each do |adopted| %>
-      <%= adopted.name %>
+    <% @adoptable_pets.each do |adopted| %>
+      <%= adopted.name %> <br>
+
     <% end %>
   <% end %>
   

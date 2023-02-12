@@ -6,8 +6,10 @@ class ApplicationsController < ApplicationController
     if params[:search]
       @pets_show= Pet.search(params[:search])
     elsif params[:adopt]
-      @pets_collection = []
-      @pets_collection.push(Pet.find(params[:adopt]))
+      requested_to_adopt = Pet.find(params[:adopt])
+      ApplicationPet.create!(pet_id: requested_to_adopt.id, application_id: @applicant.id)
+      @adoptable_pets = @applicant.pets
+      require 'pry'; binding.pry
     end 
   end
 
