@@ -5,13 +5,15 @@ Rails.application.routes.draw do
   get '/applications/:id', to: 'applications#show'
   post '/applications', to: 'applications#create'
   
-  get '/shelters', to: 'shelters#index'
-  get '/shelters/new', to: 'shelters#new'
-  get '/shelters/:id', to: 'shelters#show'
-  post '/shelters', to: 'shelters#create'
-  get '/shelters/:id/edit', to: 'shelters#edit'
-  patch '/shelters/:id', to: 'shelters#update'
-  delete '/shelters/:id', to: 'shelters#destroy'
+  namespace :admin do
+    get '/shelters', to: 'shelters#index'
+    get '/shelters/new', to: 'shelters#new'
+    get '/shelters/:id', to: 'shelters#show'
+    post '/shelters', to: 'shelters#create'
+    get '/shelters/:id/edit', to: 'shelters#edit'
+    patch '/shelters/:id', to: 'shelters#update'
+    delete '/shelters/:id', to: 'shelters#destroy'
+  end
 
   get '/pets', to: 'pets#index'
   get '/pets/:id', to: 'pets#show'
