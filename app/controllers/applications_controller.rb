@@ -6,7 +6,7 @@ class ApplicationsController < ApplicationController
     @show_submission = true
     if params[:search]
       @pets_show= Pet.search(params[:search])
-    elsif params[:adopt]
+    elsif params[:adopt] #is create function here RESTful?
       requested_to_adopt = Pet.find(params[:adopt])
       ApplicationPet.create!(pet_id: requested_to_adopt.id, application_id: @applicant.id)
       @adoptable_pets = @applicant.pets
