@@ -99,6 +99,64 @@ RSpec.describe 'applications show page features' do
 
       end
 
+      it "after checking to adopt one or more pets, I see a section to submit my application" do 
+        visit "/applications/#{@applicant_1.id}"
+        fill_in "search", with: "Norma"
+        click_button "Search"
+        expect(page).to_not have_content("Submit your application")
+        click_button("Adopt this Pet")
+
+        expect(page).to have_content("Submit your application")
+        expect(page).to have_button("Submit Description")
+      end
+
+      it "after checking to adopt one or more pets, I see a section to submit my application" do 
+        visit "/applications/#{@applicant_1.id}"
+        fill_in "search", with: "Norma"
+        click_button "Search"
+     
+        click_button("Adopt this Pet")
+
+        fill_in "description", with: "I love cats!"
+        click_button("Submit Description")
+
+        expect(current_path).to eq("/applications/#{@applicant_1.id}")
+      end
+
+      it "after submitting the description it will show that the application is pending and will not sknow the search button nor to submit your application" do 
+        visit "/applications/#{@applicant_1.id}"
+        
+        fill_in "search", with: "Norma"
+        click_button "Search"
+     
+        click_button("Adopt this Pet")
+
+        fill_in "description", with: "I love cats!"
+        click_button("Submit Description")
+
+        expect(page).to have_content("Norma")
+        expect(page).to_not have_button("Search")
+        expect(page).to have_content("Pending")
+        expect(page).to_not have_content("Submit your application")
+        
+      end
+
+      it "if i visit the application show page and no pet is in the adoption cart then I will not see a section to submit the application" do 
+        visit "/applications/#{@applicant_1.id}"
+
+      expect(page).to_not have_content("Submit your application")
+      end
+
+      context "searches" do 
+        it "the search parameters will return any partial matches" do 
+
+          fill_in "search", with: "Norma"
+          click_button "Search"
+          
+
+        end
+      end
+
 
     end
   end
