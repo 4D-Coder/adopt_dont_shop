@@ -142,11 +142,20 @@ RSpec.describe 'applications show page features' do
       end
 
       it "if i visit the application show page and no pet is in the adoption cart then I will not see a section to submit the application" do 
-      visit "/applications/#{@applicant_1.id}"
+        visit "/applications/#{@applicant_1.id}"
 
       expect(page).to_not have_content("Submit your application")
       end
 
+      context "searches" do 
+        it "the search parameters will return any partial matches" do 
+
+          fill_in "search", with: "Norma"
+          click_button "Search"
+          
+
+        end
+      end
 
 
     end

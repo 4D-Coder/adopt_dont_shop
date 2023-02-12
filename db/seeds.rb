@@ -15,6 +15,9 @@
 @shelter1= Shelter.create(name: "Caring Dogs", foster_program: true, city: "Puerto escondido", rank: 1)
 
 @pet1 = Pet.create(adoptable: true, age: 23, breed: "Golden", name: "Norma Jean", shelter_id: @shelter1.id)
-@pet2 = Pet.create(adoptable: true, age: 23, breed: "Turkish", name: "Luna", shelter_id: @shelter1.id)
+@pet2 = Pet.create(adoptable: true, age: 3, breed: "Turkish", name: "Luna", shelter_id: @shelter1.id)
+@pet3 = Pet.create(adoptable: true, age: 12, breed: "Lebanese", name: "Norma", shelter_id: @shelter1.id)
+@pet4 = Pet.create(adoptable: true, age: 11, breed: "Palestinian", name: "Norm", shelter_id: @shelter1.id)
+
 
 @applicant_1 = Application.create!(name: 'Rumiko Takahashi', address: '4307 Saddle Creek Place', city: "Orlando", state: "Florida", zip_code: 32829, status: 0, description: 'Single and has great income, flexible schedule for pet needs.')
