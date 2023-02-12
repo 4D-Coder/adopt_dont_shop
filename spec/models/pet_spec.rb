@@ -53,8 +53,15 @@ RSpec.describe Pet, type: :model do
         expect(Pet.search(input)).to eq([@pet_1])
       end
 
-      it 'returns matches based on fuzzy search param' do
+      it 'returns matches based on partial search param' do
         input = "Norm"
+
+        expect(Pet.search(input)).to eq([@pet_4, @pet_5, @pet_6])
+      end
+
+      it 'returns matches based on case insensitive and/or partial search param' do
+
+        input = "NOrM"
 
         expect(Pet.search(input)).to eq([@pet_4, @pet_5, @pet_6])
       end
