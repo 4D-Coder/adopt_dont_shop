@@ -13,11 +13,13 @@
   <p>Status of Application: <%= @applicant.status.gsub("_", " ")%>
 </section>
 <section>
+  <%if @random == nil%>
   <h3>Add a Pet to this Application</h3>
   <%= form_with url: "/applications/#{@applicant.id}", method: :get, local: true do |form| %>
     <%= form.text_field :search %> 
     <%= form.hidden_field :applicant_id, value: @applicant.id%>
     <%= form.submit "Search" %>
+  <% end %>
   <% end %>
 
   <% if @pets_show != nil%>  
@@ -28,14 +30,46 @@
        <%# local: true %>
     <% end %>
   <% end %>
-  <% if @adoptable_pets != nil %>
-  <%binding.pry%>
-  <h3> Adoption Requests</h3>
-    <% @adoptable_pets.each do |adopted| %>
-      <%= adopted.name %> <br>
 
+
+
+  <% if @adoptable_pets != nil %>
+    <h3> Adoption Requests</h3>
+      <% @adoptable_pets.each do |adopted| %>
+        <%= adopted.name %> <br>
+      <% end %>
     <% end %>
-  <% end %>
+
+
+  <% if @adoptable_pets_2 != []%>
+
+    <h4>Pending pets you would like to adopt:</h4>
+
+        <% @adoptable_pets_2.each do |adopted| %>
+        <%= adopted.name %> <br>
+        <% end %>
+
+
+
+    <%binding.pry%>
+    <% if @show_submission%>
+
+      <h4> Submit your application</h4>
+
+        <%= form_with url: "/applications/#{@applicant.id}", method: :get, local: true do |form| %>
+        <%= form.text_area :description %> 
+        <%= form.submit "Submit Description" %>
+        <% end %>
+      
+      <% end %> 
+    <% end %> 
+
+
+
+    <%if @indicator != nil%>
+      <p>Status of application: <%@applicant.status%></p>
+    <%end %>
+ 
   
 
 

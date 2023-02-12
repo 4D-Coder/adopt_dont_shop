@@ -2,15 +2,21 @@ class ApplicationsController < ApplicationController
 
   def show
     @applicant = Application.find(params[:id])
-
+    @adoptable_pets_2 = @applicant.pets
+    @show_submission = true
     if params[:search]
       @pets_show= Pet.search(params[:search])
     elsif params[:adopt]
       requested_to_adopt = Pet.find(params[:adopt])
       ApplicationPet.create!(pet_id: requested_to_adopt.id, application_id: @applicant.id)
       @adoptable_pets = @applicant.pets
-      require 'pry'; binding.pry
+    elsif params[:description]
+      @applicant.update! status:1
+      @random = false 
     end 
+    if @applicant.status == "Pending"
+      @show_submission = false
+    end
   end
 
   def new
