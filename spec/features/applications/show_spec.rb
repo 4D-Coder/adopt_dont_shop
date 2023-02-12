@@ -6,6 +6,8 @@ RSpec.describe 'applications show page features' do
     @shelter1= Shelter.create!(name: "Caring Dogs", foster_program: true, city: "Puerto escondido", rank: 1)
     @pet1 = Pet.create!(adoptable: true, age: 23, breed: "Golden", name: "Norma", shelter_id: @shelter1.id)
     @pet2 = Pet.create!(adoptable: true, age: 23, breed: "Turkish", name: "Luna", shelter_id: @shelter1.id)
+    @pet3 = Pet.create!(adoptable: true, age: 23, breed: "Golden", name: "Norma Jean", shelter_id: @shelter1.id)
+    @pet4 = Pet.create!(adoptable: true, age: 23, breed: "Golden", name: "Norm", shelter_id: @shelter1.id)
 
 
   end
@@ -143,17 +145,22 @@ RSpec.describe 'applications show page features' do
 
       it "if i visit the application show page and no pet is in the adoption cart then I will not see a section to submit the application" do 
         visit "/applications/#{@applicant_1.id}"
-
-      expect(page).to_not have_content("Submit your application")
+        
+        expect(page).to_not have_content("Submit your application")
       end
-
+      
       context "searches" do 
         it "the search parameters will return any partial matches" do 
-
-          fill_in "search", with: "Norma"
-          click_button "Search"
+          visit "/applications/#{@applicant_1.id}"
           
+          fill_in "search", with: "Norm"
+          click_button "Search"
 
+          save_and_open_page
+          
+          expect(page).to have_content(@pet1.name)
+          expect(page).to have_content(@pet3.name)
+          expect(page).to have_content(@pet4.name)
         end
       end
 
