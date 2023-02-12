@@ -5,9 +5,6 @@
 
 <%@pets_show%>
 
-
-
-
   <p>Name: <%= @applicant.name %></p>
   <p>Address: <%= @applicant.address%> <%=@applicant.city%> <%=@applicant.state%> <%=@applicant.zip_code%></p>
   <p>Status: <%= @applicant.status %></p>
@@ -25,10 +22,20 @@
 
   <% if @pets_show != nil%>  
   <h3> Pets Returned by Search </h3>
-<%@pets_show.each do |pet|%>
-<%=pet.name%>
-<%end%>
-<%end%>
+    <%@pets_show.each do |pet|%>
+      <%= pet.name %>
+      <%= button_to "Adopt this Pet", "/applications/#{@applicant.id}", params: {adopt: "#{pet.id}"}, method: :get %>
+       <%# local: true %>
+    <% end %>
+  <% end %>
+  <% binding.pry %>
+  <% if @pets_collection != nil %>
+  <h3> Adoption Requests</h3>
+  <% binding.pry %>
+    <% @pets_collection.each do |adopted| %>
+      <%= adopted.name %>
+    <% end %>
+  <% end %>
   
 
 

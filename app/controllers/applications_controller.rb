@@ -5,7 +5,9 @@ class ApplicationsController < ApplicationController
 
     if params[:search]
       @pets_show= Pet.search(params[:search])
-
+    elsif params[:adopt]
+      @pets_collection = []
+      @pets_collection.push(Pet.find(params[:adopt]))
     end 
   end
 

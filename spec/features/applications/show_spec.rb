@@ -42,7 +42,7 @@ RSpec.describe 'applications show page features' do
 
       it "when I fill in this field with a Pet's name and click submit, I am taken back to the application show page and under the search bar I see any pet whose name matches my search" do 
         visit "/applications/#{@applicant_1.id}"
-        fill_in "search", with: "Norma Jean"
+        fill_in "search", with: "Norma"
         click_button "Search"
         save_and_open_page
         expect(current_path).to eq("/applications/#{@applicant_1.id}")
@@ -55,8 +55,11 @@ RSpec.describe 'applications show page features' do
         visit "/applications/#{@applicant_1.id}"
         fill_in "search", with: "Norma"
         click_button "Search"
-
+        save_and_open_page
         expect(page).to have_button("Adopt this Pet")
+
+        click_button("Adopt this Pet")
+        expect(current_path).to eq("/applications/#{@applicant_1.id}")
       end
     end
 

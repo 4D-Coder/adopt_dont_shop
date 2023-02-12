@@ -5,7 +5,6 @@ class PetsController < ApplicationController
       @pets = Pet.search(params[:search])
       # require 'pry'; binding.pry
       # flash[:pets] = @pets
-      require 'pry'; binding.pry
       # render "/applications/#{params[:applicant_id]}"
 
     else
