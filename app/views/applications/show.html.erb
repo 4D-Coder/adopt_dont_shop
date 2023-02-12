@@ -1,15 +1,13 @@
 <section>
   <header>
-    <h2>Applicant TESTInformation</h2>
+    <h2>Applicant TEST10Information</h2>
   </header>
 
-<%@pets.each do |pet|%>
-  <%binding.pry%>
+<%@pets_show%>
 
-<%=pet.name%>
-<%end%>
 
-<%=@name%>
+
+
   <p>Name: <%= @applicant.name %></p>
   <p>Address: <%= @applicant.address%> <%=@applicant.city%> <%=@applicant.state%> <%=@applicant.zip_code%></p>
   <p>Status: <%= @applicant.status %></p>
@@ -19,14 +17,20 @@
 </section>
 <section>
   <h3>Add a Pet to this Application</h3>
-
-  <%= form_with url: "/applications/#{@applicant.id}", method: :get do |form| %>
+  <%= form_with url: "/applications/#{@applicant.id}", method: :get, local: true do |form| %>
     <%= form.text_field :search %> 
     <%= form.hidden_field :applicant_id, value: @applicant.id%>
     <%= form.submit "Search" %>
   <% end %>
-  
+
+  <% if @pets_show != nil%>  
   <h3> Pets Returned by Search </h3>
+<%@pets_show.each do |pet|%>
+<%=pet.name%>
+<%end%>
+<%end%>
+  
+
 
 
 
