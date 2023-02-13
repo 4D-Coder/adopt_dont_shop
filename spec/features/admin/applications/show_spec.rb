@@ -10,6 +10,10 @@ RSpec.describe 'applications show page features' do
     @pet2 = Pet.create!(adoptable: true, age: 23, breed: "Turkish", name: "Luna", shelter_id: @shelter1.id)
     @pet3 = Pet.create!(adoptable: true, age: 23, breed: "Golden", name: "Norma Jean", shelter_id: @shelter1.id)
     @pet4 = Pet.create!(adoptable: true, age: 23, breed: "Golden", name: "Norm", shelter_id: @shelter1.id)
+
+    @application_pet1 = ApplicationPet.create!(pet_id: @pet4.id, application_id: @applicant_1.id, approval: 0)
+    @application_pet1 = ApplicationPet.create!(pet_id: @pet4.id, application_id: @applicant_2.id, approval: 0)
+
   end
 
   describe 'As a visitor' do
@@ -97,34 +101,14 @@ RSpec.describe 'applications show page features' do
 
       it "after approving the pet, there is no button next to the pet any longer to approve or not, instead there is an indicator saying that they have been approved" do 
 
-        visit "/applications/#{@applicant_1.id}"
-
-        fill_in "search", with: "Norma Jean"
-        click_button "Search"
-     
-        click_button("Adopt this Pet")
-
-        visit "/applications/#{@applicant_1.id}"
-
-        fill_in "search", with: "Luna"
-        click_button "Search"
-     
-        click_button("Adopt this Pet")
-
-        fill_in "description", with: "My Kitty!"
-        click_button("Submit Description")
-      
-
         visit "/admin/applications/#{@applicant_1.id}"
-        
-        click_button("Approve Application for #{@pet3.name}")
-        
         save_and_open_page
+        click_button("Approve Application for #{@pet4.name}")
+        save_and_open_page
+        expect(page).to_not have_button("Approve Application for #{@pet4.name}")
+        expect(page).to_not have_button("Deny Application for #{@pet4.name}")
 
-
-        expect(page).to_not have_button("Approve Application for #{@pet3.name}")
-
-        expect(page).to have_content("Application for #{@pet3.name} is Approved.")
+        expect(page).to have_content("Application for #{@pet4.name} is Approved.")
 
       end
 
@@ -157,6 +141,10 @@ RSpec.describe 'applications show page features' do
 
         expect(page).to have_content("Application for #{@pet3.name} is Denied.")
 
+      end
+
+      it "USER STORY 14" do 
+        require 'pry'; binding.pry
       end
 
 
