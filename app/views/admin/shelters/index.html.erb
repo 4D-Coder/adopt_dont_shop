@@ -18,7 +18,9 @@
 
 <section>
   <h3>Shelters with Pending Applications </h3>
-    @shelters_with_pending_applications
+    <%@shelters_with_pending_applications.each do |shelter| %>
+      <p><%="Pending application: #{shelter.name}"%></p>
+    <%end %>
 
 
 

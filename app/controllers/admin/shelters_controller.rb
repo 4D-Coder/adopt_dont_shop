@@ -1,7 +1,6 @@
 module Admin
   class SheltersController < ApplicationController
     def index
-      require 'pry'; binding.pry
       if params[:sort].present? && params[:sort] == "pet_count"
         @shelters = Shelter.order_by_number_of_pets
       elsif params[:search].present?
@@ -10,6 +9,7 @@ module Admin
         @shelters = Shelter.reverse_alphabetize
         # @shelters = Shelter.order_by_recently_created
       end
+      @shelters_with_pending_applications = Shelter.joins(pets: :applications).where(applications: {status:1}).distinct
     end
 
     def pets
