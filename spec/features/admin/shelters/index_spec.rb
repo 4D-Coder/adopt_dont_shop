@@ -56,16 +56,17 @@ RSpec.describe 'the Admin Shelters index' do
     click_button "Search"
  
     click_button("Adopt this Pet")
-    
-    # fill_in "description", with: "I'm also bald"
-    # click_button("Submit Description")
+
+    fill_in "description", with: "I'm also bald"
+    click_button("Submit Description")
 
     visit "/admin/shelters"
-
     expect(page).to have_content("Shelters with Pending Applications")
-    expect(page).to have_content(@shelter_1.name)
-    expect(page).to have_content(@shelter_3.name)
-    expect(page).to_not have_content(@shelter_2.name)
+
+    expect(page).to have_content("Pending application: #{@shelter_1.name}")
+    expect(page).to have_content("Pending application: #{@shelter_3.name}")
+
+    expect(page).to_not have_content("Pending application: #{@shelter_2.name}")
 
   end
 
