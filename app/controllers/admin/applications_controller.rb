@@ -3,7 +3,6 @@ module Admin
 
     def show
       @applicant = Application.find(params[:id])
-      @adoptable_pets_2 = @applicant.pets
       @show_submission = true
       if params[:search]
         @pets_show= Pet.search(params[:search])

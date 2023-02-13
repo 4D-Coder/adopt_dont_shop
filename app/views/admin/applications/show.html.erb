@@ -41,40 +41,38 @@
     <% end %>
 
 
-  <% if @adoptable_pets_2 != []%>
-
-    <% @adoptable_pets_2.each do |adopted| %>
-
-    <%relevant = ApplicationPet.where(application_id: @applicant.id).where(pet_id: adopted.id)%>  
-
+  <% if @applicant.pets != []%>
+<%binding.pry %>
+    <% @applicant.pets.each do |adopted| %>
+<%binding.pry %>
+      <%relevant = @applicant.application_pets.where(pet_id: adopted.id)%>  
+<%binding.pry %>
+    <h4>Pending pets the applicant would like to adopt:</h4>
+<%binding.pry %>
     <% if relevant.first.approval == 0 %> 
-
-    <h4>Pending pets you would like to adopt:</h4>
 
           <%= adopted.name %>
 
           <br>
+          <br>
+          <%= button_to "Approve Application for #{adopted.name}", "/admin/application_pets/#{@applicant.id}", params: {approval: "approved", pet_id: "#{adopted.id}"}, method: :patch %>
 
-          <%= button_to "Approve Application for #{adopted.name}", "/admin/application_pets/#{@applicant.id}", params: {pet_id: "#{adopted.id}"}, method: :patch %>
-
-
+          <%= button_to "Deny Application for #{adopted.name}", "/admin/application_pets/#{@applicant.id}", params: {approval: "denied", pet_id: "#{adopted.id}"}, method: :patch %>
 
         <%elsif relevant.first.approval == 1%>
-          <%="Application for #{adopted.name} is Approved."%>
+          <br> <%="Application for #{adopted.name} is Approved."%>
+
+        <%elsif relevant.first.approval == 2%>
+            <br> <%="Application for #{adopted.name} is Denied."%>
+
+
         <%end%>
 
-        <% end %> <%#-- corresponds to line 48 %>
 
-    <% if @show_submission%>
 
-      <h4> Submit your application</h4>
+        <% end %> <%#-- corresponds to line 46 %>
 
-        <%= form_with url: "/applications/#{@applicant.id}", method: :get, local: true do |form| %>
-        <%= form.text_area :description %> 
-        <%= form.submit "Submit Description" %>
-        <% end %>
-      
-      <% end %> 
+
     <% end %> 
 
 

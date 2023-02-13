@@ -13,7 +13,7 @@ RSpec.describe 'applications show page features' do
   end
 
   describe 'As a visitor' do
-    context 'When I visit an applications show page' do
+    context 'When I visit an admin applications show page' do
       it 'shows the applicants attributes' do
         visit "/applications/#{@applicant_1.id}"
         # save_and_open_page
@@ -46,6 +46,29 @@ RSpec.describe 'applications show page features' do
 
         expect(page).to have_button("Approve Application for #{@pet2.name}")
         expect(page).to have_button("Approve Application for #{@pet3.name}")
+      end
+
+
+      it "next to every pet, there's a button to deny the application" do
+        visit "/applications/#{@applicant_1.id}"
+
+        fill_in "search", with: "Norma Jean"
+        click_button "Search"
+     
+        click_button("Adopt this Pet")
+    
+        fill_in "search", with: "Luna"
+        click_button "Search"
+    
+        click_button("Adopt this Pet")
+    
+        fill_in "description", with: "I love cats!"
+        click_button("Submit Description")
+        
+        visit "/admin/applications/#{@applicant_1.id}"
+
+        expect(page).to have_button("Deny Application for #{@pet2.name}")
+        expect(page).to have_button("Deny Application for #{@pet3.name}")
       end
 
       it 'when I click that button to approve the application, it navigates visitor back to the application show page after clicking button' do
@@ -81,33 +104,58 @@ RSpec.describe 'applications show page features' do
      
         click_button("Adopt this Pet")
 
-        fill_in "description", with: "I love cats!"
-        click_button("Submit Description")
+        visit "/applications/#{@applicant_1.id}"
 
-
-        visit "/applications/#{@applicant_2.id}"
-
-        fill_in "search", with: "Norma Jean"
+        fill_in "search", with: "Luna"
         click_button "Search"
      
         click_button("Adopt this Pet")
 
         fill_in "description", with: "My Kitty!"
         click_button("Submit Description")
-        
-
-
+      
 
         visit "/admin/applications/#{@applicant_1.id}"
         
-        
         click_button("Approve Application for #{@pet3.name}")
-
+        
         save_and_open_page
+
 
         expect(page).to_not have_button("Approve Application for #{@pet3.name}")
 
         expect(page).to have_content("Application for #{@pet3.name} is Approved.")
+
+      end
+
+      it "after denying the pet, there is no button next to the pet any longer to approve or not, instead there is an indicator saying that they have been approved" do 
+
+        visit "/applications/#{@applicant_1.id}"
+
+        fill_in "search", with: "Norma Jean"
+        click_button "Search"
+     
+        click_button("Adopt this Pet")
+
+        visit "/applications/#{@applicant_1.id}"
+
+        fill_in "search", with: "Luna"
+        click_button "Search"
+     
+        click_button("Adopt this Pet")
+
+        fill_in "description", with: "My Kitty!"
+        click_button("Submit Description")
+
+        visit "/admin/applications/#{@applicant_1.id}"
+        
+        click_button("Deny Application for #{@pet3.name}")
+
+
+        expect(page).to_not have_button("Deny Application for #{@pet3.name}")
+        expect(page).to_not have_button("Approve Application for #{@pet3.name}")
+
+        expect(page).to have_content("Application for #{@pet3.name} is Denied.")
 
       end
 
