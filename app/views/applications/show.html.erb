@@ -46,7 +46,7 @@
     <h4>Pending pets you would like to adopt:</h4>
 
         <% @adoptable_pets_2.each do |adopted| %>
-        <%= adopted.name %><%= button_to "Approve Application for #{adopted.name}", "/admin/applications/#{@applicant.id}", method: :patch %>
+        <%= adopted.name %>
         <% end %>
 
     <% if @show_submission%>
