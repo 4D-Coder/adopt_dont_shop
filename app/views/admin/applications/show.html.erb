@@ -42,13 +42,11 @@
 
 
   <% if @applicant.pets != []%>
-<%binding.pry %>
+  <%binding.pry%>
     <% @applicant.pets.each do |adopted| %>
-<%binding.pry %>
+    <%binding.pry%>
       <%relevant = @applicant.application_pets.where(pet_id: adopted.id)%>  
-<%binding.pry %>
     <h4>Pending pets the applicant would like to adopt:</h4>
-<%binding.pry %>
     <% if relevant.first.approval == 0 %> 
 
           <%= adopted.name %>
