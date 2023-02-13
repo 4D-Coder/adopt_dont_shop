@@ -41,37 +41,38 @@
     <% end %>
 
 
-  <% if @applicant.pets != []%>
-  <%binding.pry%>
-    <% @applicant.pets.each do |adopted| %>
-    <%binding.pry%>
-      <%relevant = @applicant.application_pets.where(pet_id: adopted.id)%>  
-    <h4>Pending pets the applicant would like to adopt:</h4>
-    <% if relevant.first.approval == 0 %> 
+  <% if @applicant.application_pets != []%>
+      <h4>Pending pets the applicant would like to adopt:</h4>
 
-          <%= adopted.name %>
+    <% @applicant.application_pets.each do |relationship_object| %>
 
-          <br>
-          <br>
-          <%= button_to "Approve Application for #{adopted.name}", "/admin/application_pets/#{@applicant.id}", params: {approval: "approved", pet_id: "#{adopted.id}"}, method: :patch %>
+      <% if relationship_object.approval == 0 %> 
 
-          <%= button_to "Deny Application for #{adopted.name}", "/admin/application_pets/#{@applicant.id}", params: {approval: "denied", pet_id: "#{adopted.id}"}, method: :patch %>
+        <%= relationship_object.pet.name %>
+        <br>
+        <br>
+        <%= button_to "Approve Application for #{relationship_object.pet.name}", "/admin/application_pets/#{@applicant.id}", params: {approval: "approved", pet_id: "#{relationship_object.id}"}, method: :patch %>
 
-        <%elsif relevant.first.approval == 1%>
-          <br> <%="Application for #{adopted.name} is Approved."%>
+        <%= button_to "Deny Application for #{relationship_object.pet.name}", "/admin/application_pets/#{@applicant.id}", params: {approval: "denied", pet_id: "#{relationship_object.id}"}, method: :patch %>
+      <%end%>
+    <% end %>
 
-        <%elsif relevant.first.approval == 2%>
-            <br> <%="Application for #{adopted.name} is Denied."%>
-
-
-        <%end%>
-
-
-
-        <% end %> <%#-- corresponds to line 46 %>
-
-
+<%binding.pry%>
+    <% if @applicant.application_pets != []%>
+      <% @applicant.application_pets.each do |application_pet| %>
+        <% if application_pet.approval == 1 %> 
+          <br> <%="Application for #{application_pet.pet.name} is Approved."%>
+        <%elsif application_pet.approval == 2%>
+          <br> <%="Application for #{application_pet.pet.name} is Denied."%>
+        <%end %>
+      <% end %>
     <% end %> 
+  <% end %> 
+
+
+
+   <%#-- corresponds to line 44 %>
+
 
 
 
