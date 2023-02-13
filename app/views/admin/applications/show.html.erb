@@ -43,11 +43,27 @@
 
   <% if @adoptable_pets_2 != []%>
 
+    <% @adoptable_pets_2.each do |adopted| %>
+
+    <%relevant = ApplicationPet.where(application_id: @applicant.id).where(pet_id: adopted.id)%>  
+
+    <% if relevant.first.approval == 0 %> 
+
     <h4>Pending pets you would like to adopt:</h4>
 
-        <% @adoptable_pets_2.each do |adopted| %>
-        <%= adopted.name %><%= button_to "Approve Application for #{adopted.name}", "/admin/application_pets/#{@applicant.id}", params: {pet_id: "#{adopted.id}"}, method: :patch %>
-        <% end %>
+          <%= adopted.name %>
+
+          <br>
+
+          <%= button_to "Approve Application for #{adopted.name}", "/admin/application_pets/#{@applicant.id}", params: {pet_id: "#{adopted.id}"}, method: :patch %>
+
+
+
+        <%elsif relevant.first.approval == 1%>
+          <%="Application for #{adopted.name} is Approved."%>
+        <%end%>
+
+        <% end %> <%#-- corresponds to line 48 %>
 
     <% if @show_submission%>
 

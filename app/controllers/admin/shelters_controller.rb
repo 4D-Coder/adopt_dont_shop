@@ -9,7 +9,7 @@ module Admin
         @shelters = Shelter.reverse_alphabetize
         # @shelters = Shelter.order_by_recently_created
       end
-      @shelters_with_pending_applications = Shelter.joins(pets: :applications).where(applications: {status:1}).distinct
+      @shelters_with_pending_applications = Shelter.pending_applications
     end
 
     def pets

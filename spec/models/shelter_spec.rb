@@ -21,6 +21,15 @@ RSpec.describe Shelter, type: :model do
     @pet_2 = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
     @pet_3 = @shelter_3.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
     @pet_4 = @shelter_1.pets.create(name: 'Ann', breed: 'ragdoll', age: 5, adoptable: true)
+
+    @applicant_1 = Application.create!(name: 'Rumiko Takahashi', address: '4307 Saddle Creek Place', city: "Orlando", state: "Florida", zip_code: 32829, status: 1, description: 'Single and has great income, flexible schedule for pet needs.')
+
+    @applicant_2 = Application.create!(name: 'Hady Matar', address: '19 Calle Jacarandas', city: "Puerto Escondido", state: "Oaxaca", zip_code: 98343, status: 1, description: 'Dog Lover.')
+
+    @applicant_pet_connection_1 = ApplicationPet.create!(application_id: @applicant_1.id, pet_id: @pet_1.id)
+
+    @applicant_pet_connection_2 = ApplicationPet.create!(application_id: @applicant_2.id, pet_id: @pet_3.id)
+
   end
 
   describe 'class methods' do
@@ -47,6 +56,14 @@ RSpec.describe Shelter, type: :model do
         expect(Shelter.reverse_alphabetize).to eq([@shelter_2, @shelter_3, @shelter_1])
       end
     end
+
+    describe '#pending_applications' do 
+      it "can list the applications pending" do 
+        require 'pry'; binding.pry
+        expect(Shelter.pending_applications).to eq([@shelter_1, @shelter_3])
+      end
+    end
+
   end
 
   describe 'instance methods' do
