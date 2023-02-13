@@ -42,27 +42,27 @@
 
 
   <% if @applicant.pets != []%>
-<%binding.pry %>
-    <% @applicant.pets.each do |adopted| %>
-<%binding.pry %>
-      <%relevant = @applicant.application_pets.where(pet_id: adopted.id)%>  
-<%binding.pry %>
+    <%# <% @applicant.pets.each do |adopted| %> %>
+      <%# <%relevant = @applicant.application_pets.where(pet_id: adopted.id)%>   %>
     <h4>Pending pets the applicant would like to adopt:</h4>
-<%binding.pry %>
-    <% if relevant.first.approval == 0 %> 
+<%binding.pry%>
 
-          <%= adopted.name %>
+      <%@relevant_1.flatten.each do |pet_application|%>
+
+    <% if pet_application.approval == 0 %> 
+    <%binding.pry%>
+          <%=@relevant_pet_objects_1.first.name%>%
 
           <br>
           <br>
-          <%= button_to "Approve Application for #{adopted.name}", "/admin/application_pets/#{@applicant.id}", params: {approval: "approved", pet_id: "#{adopted.id}"}, method: :patch %>
+          <%= button_to "Approve Application", "/admin/application_pets/#{@applicant.id}", params: {approval: "approved", pet_id: "#{pet_application.pet_id}"}, method: :patch %>
 
-          <%= button_to "Deny Application for #{adopted.name}", "/admin/application_pets/#{@applicant.id}", params: {approval: "denied", pet_id: "#{adopted.id}"}, method: :patch %>
+          <%= button_to "Deny Application", "/admin/application_pets/#{@applicant.id}", params: {approval: "denied", pet_id: "#{pet_application.pet_id}"}, method: :patch %>
 
-        <%elsif relevant.first.approval == 1%>
+        <%elsif @relevant.first.approval == 1%>
           <br> <%="Application for #{adopted.name} is Approved."%>
 
-        <%elsif relevant.first.approval == 2%>
+        <%elsif @relevant.first.approval == 2%>
             <br> <%="Application for #{adopted.name} is Denied."%>
 
 

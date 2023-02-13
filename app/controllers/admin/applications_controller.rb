@@ -3,6 +3,20 @@ module Admin
 
     def show
       @applicant = Application.find(params[:id])
+require 'pry'; binding.pry
+
+      @relevant_1 = []
+      @relevant_pet_objects_1 = []
+
+      @applicant.pets.each do |adopted|
+        @relevant_1 << @applicant.application_pets.where(pet_id: adopted.id)
+        @relevant_pet_objects_1 << Pet.find(@relevant_1.flatten.first.pet_id)
+        # require 'pry'; binding.pry
+      end
+
+
+
+
       @show_submission = true
       if params[:search]
         @pets_show= Pet.search(params[:search])
