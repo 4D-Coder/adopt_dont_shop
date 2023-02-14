@@ -144,7 +144,13 @@ RSpec.describe 'applications show page features' do
       end
 
       it "USER STORY 14" do 
-        require 'pry'; binding.pry
+        visit "/admin/applications/#{@applicant_1.id}"
+        
+        click_button("Deny Application for #{@pet4.name}")
+        
+        visit "/admin/applications/#{@applicant_2.id}"
+        save_and_open_page
+
       end
 
 
