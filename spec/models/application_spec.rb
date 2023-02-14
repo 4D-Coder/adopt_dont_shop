@@ -14,6 +14,6 @@ RSpec.describe Application, type: :model do
     it { should validate_presence_of(:zip_code) }
     it { should validate_presence_of(:state) }
     it { should validate_presence_of(:city) }
-
+    it { should define_enum_for(:status).with_values(["In Progress", "Pending", "Accepted", "Rejected"])}
   end
 end
