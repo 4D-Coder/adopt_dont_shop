@@ -11,12 +11,14 @@ class Application < ApplicationRecord
   enum status: ["In Progress", "Pending", "Approved", "Rejected"]
 
 def cumulative_status_approved
-  (self.application_pets.count == self.application_pets.where(approval: 1).count)
+  require 'pry'; binding.pry
+  (self.application_pets.count == self.application_pets.where(approval: "Approved").count)
 end 
 
 def cumulative_status_denied 
+  require 'pry'; binding.pry
   self.application_pets
-  (self.application_pets.where(approval: 1).count) > 0
+  (self.application_pets.where(approval: "Rejected").count) > 0
 end 
 
 end 
