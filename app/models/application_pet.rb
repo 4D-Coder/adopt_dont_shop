@@ -2,7 +2,7 @@ class ApplicationPet < ApplicationRecord
   belongs_to :pet
   belongs_to :application
 
-  enum status: [:No_Application, :Approved, :Rejected]
+  enum approval: ["No Status", "Approved", "Rejected"]
 
   # if we have bugs, this was previously labeled status
 
