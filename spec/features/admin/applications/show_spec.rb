@@ -83,11 +83,6 @@ RSpec.describe 'applications show page features' do
      
         click_button("Adopt this Pet")
     
-        # fill_in "search", with: "Luna"
-        # click_button "Search"
-    
-        # click_button("Adopt this Pet")
-    
         fill_in "description", with: "I love cats!"
         click_button("Submit Description")
         
@@ -102,9 +97,9 @@ RSpec.describe 'applications show page features' do
       it "after approving the pet, there is no button next to the pet any longer to approve or not, instead there is an indicator saying that they have been approved" do 
 
         visit "/admin/applications/#{@applicant_1.id}"
-    
+        
         click_button("Approve Application for #{@pet4.name}")
-    
+        
         expect(page).to_not have_button("Approve Application for #{@pet4.name}")
         expect(page).to_not have_button("Deny Application for #{@pet4.name}")
 

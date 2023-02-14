@@ -59,7 +59,6 @@ RSpec.describe Shelter, type: :model do
 
     describe '#pending_applications' do 
       it "can list the applications pending" do 
-        require 'pry'; binding.pry
         expect(Shelter.pending_applications).to eq([@shelter_1, @shelter_3])
       end
     end

@@ -32,6 +32,7 @@ RSpec.describe 'pet creation' do
       end
     end
 
+    # ERROR_MESSAGE is coming back as undefined. 
     context 'given invalid data' do
       it 're-renders the new form' do
         visit "/shelters/#{@shelter.id}/pets/new"
