@@ -14,7 +14,7 @@
 </section>
 
 <section>
-  <%if @random == nil%>
+  <%if @applicant.status == "In Progress"%>
   <h3>Search for a pet to apply to your application (full or parial name)</h3>
   <%= form_with url: "/applications/#{@applicant.id}", method: :get, local: true do |form| %>
     <%= form.text_field :search %> 
@@ -32,8 +32,6 @@
     <% end %>
   <% end %>
 
-
-
   <% if @applicant.pets != nil %>
     <h3> Adoption Requests</h3>
       <% @applicant.pets.each do |adopted| %>
@@ -50,19 +48,17 @@
         <%= adopted.name %>
         <% end %>
 
-    <% if @show_submission%>
+    <% if @applicant.status == "In Progress"%>
 
       <h4> Submit your application</h4>
 
-        <%= form_with url: "/applications/#{@applicant.id}", method: :get, local: true do |form| %>
+        <%= form_with url: "/applications/#{@applicant.id}", method: :patch, local: true do |form| %>
         <%= form.text_area :description %> 
         <%= form.submit "Submit Description" %>
         <% end %>
       
       <% end %> 
     <% end %> 
-
-
 
     <%if @indicator != nil%>
       <p>Status of application: <%@applicant.status%></p>

@@ -7,17 +7,13 @@ class ApplicationsController < ApplicationController
       @pets_show= Pet.search(params[:search])
     elsif params[:adopt] 
       ApplicationPet.create_application_pet(params)
-    elsif params[:description] #Ask whether update needs to go elsewhere because of REST considerations
-      @applicant.update! status:1
-      @random = false 
     end 
-    if @applicant.status == "Pending"
-      @show_submission = false
-    end
   end
 
-  def update!
-    require 'pry'; binding.pry
+  def update
+    @applicant = Application.find(params[:id])
+    @applicant.update! status:1
+    redirect_to "/applications/#{@applicant.id}"
   end
 
   def new
@@ -32,7 +28,6 @@ class ApplicationsController < ApplicationController
     else
       redirect_to "/applications/new"
       @errors = application.errors.messages
-
       flash[:alert] = @errors.map do |error|
         "#{error.first.capitalize} #{error.last}.".gsub(/[\["\]]/, "")
       end.join.gsub(/\./, ". ")
