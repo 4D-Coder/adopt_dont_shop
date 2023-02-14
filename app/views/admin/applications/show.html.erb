@@ -27,7 +27,7 @@
     <% end %>
 
 
-  <% if @applicant.application_pets != []%>
+  <% if @applicant.application_pets != [] && @applicant.status != "Approved" %>
     <h4>Pending pets the applicant would like to adopt:</h4>
     <% @applicant.application_pets.each do |relationship_object| %>
       <% if relationship_object.approval == 0 %> 

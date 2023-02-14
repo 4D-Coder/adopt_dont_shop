@@ -8,6 +8,15 @@ class Application < ApplicationRecord
   has_many :application_pets
   has_many :pets, through: :application_pets
 
-  enum status: ["In Progress", "Pending", "Accepted", "Rejected"]
+  enum status: ["In Progress", "Pending", "Approved", "Rejected"]
+
+def cumulative_status_approved
+  (self.application_pets.count == self.application_pets.where(approval: 1).count)
+end 
+
+def cumulative_status_denied 
+  self.application_pets
+  (self.application_pets.where(approval: 1).count) > 0
+end 
 
 end 

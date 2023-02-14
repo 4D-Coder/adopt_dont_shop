@@ -1,12 +1,7 @@
 class PetsController < ApplicationController
   def index
     if params[:search].present?
-      # require 'pry'; binding.pry
       @pets = Pet.search(params[:search])
-      # require 'pry'; binding.pry
-      # flash[:pets] = @pets
-      # render "/applications/#{params[:applicant_id]}"
-
     else
       @pets = Pet.adoptable
     end
@@ -36,6 +31,7 @@ class PetsController < ApplicationController
   end
 
   def update
+    require 'pry'; binding.pry
     pet = Pet.find(params[:id])
     if pet.update(pet_params)
       redirect_to "/pets/#{pet.id}"
