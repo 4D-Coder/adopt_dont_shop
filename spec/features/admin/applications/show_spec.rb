@@ -20,13 +20,13 @@ RSpec.describe 'applications show page features' do
     context 'When I visit an admin applications show page' do
       it 'shows the applicants attributes' do
         visit "/applications/#{@applicant_1.id}"
-        # save_and_open_page
+        
         expect(page).to have_content("Name: #{@applicant_1.name}")
         expect(page).to have_content("Address: #{@applicant_1.address}")
         expect(page).to have_content(@applicant_1.city)
         expect(page).to have_content(@applicant_1.state)
         expect(page).to have_content(@applicant_1.zip_code)
-        expect(page).to have_content("Status: In_Progress")
+        expect(page).to have_content("Status: In Progress")
         expect(page).to have_content("Description: #{@applicant_1.description}")
       end
 
@@ -102,9 +102,9 @@ RSpec.describe 'applications show page features' do
       it "after approving the pet, there is no button next to the pet any longer to approve or not, instead there is an indicator saying that they have been approved" do 
 
         visit "/admin/applications/#{@applicant_1.id}"
-        save_and_open_page
+    
         click_button("Approve Application for #{@pet4.name}")
-        save_and_open_page
+    
         expect(page).to_not have_button("Approve Application for #{@pet4.name}")
         expect(page).to_not have_button("Deny Application for #{@pet4.name}")
 
@@ -143,13 +143,16 @@ RSpec.describe 'applications show page features' do
 
       end
 
-      it "USER STORY 14" do 
+      it "Where two applicants are both applying for the same pet, Accepting or denying for one applicant does not impact the other applicant's" do 
+
         visit "/admin/applications/#{@applicant_1.id}"
         
         click_button("Deny Application for #{@pet4.name}")
         
         visit "/admin/applications/#{@applicant_2.id}"
-        save_and_open_page
+        
+        expect(page).to have_button("Deny Application for #{@pet4.name}")
+        expect(page).to have_button("Approve Application for #{@pet4.name}")
 
       end
 
