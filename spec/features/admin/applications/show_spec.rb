@@ -155,8 +155,6 @@ RSpec.describe 'applications show page features' do
         expect(page).to have_button("Approve Application for #{@pet4.name}")
 
       end
-
-
     end
   end
 end

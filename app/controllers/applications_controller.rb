@@ -2,14 +2,11 @@ class ApplicationsController < ApplicationController
 
   def show
     @applicant = Application.find(params[:id])
-    @adoptable_pets_2 = @applicant.pets
     @show_submission = true
     if params[:search]
       @pets_show= Pet.search(params[:search])
-    elsif params[:adopt] #is create function here RESTful?
-      requested_to_adopt = Pet.find(params[:adopt])
-      ApplicationPet.create!(pet_id: requested_to_adopt.id, application_id: @applicant.id, approval: 0)
-      @adoptable_pets = @applicant.pets
+    elsif params[:adopt] 
+      ApplicationPet.create_application_pet(params)
     elsif params[:description] #Ask whether update needs to go elsewhere because of REST considerations
       @applicant.update! status:1
       @random = false 
