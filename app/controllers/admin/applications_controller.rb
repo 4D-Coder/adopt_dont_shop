@@ -10,11 +10,11 @@ module Admin
       end 
       require 'pry'; binding.pry
       if @applicant.cumulative_status_approved 
-          @applicant.status = 2 
+          @applicant.update! status:2 
           relevant_pets = Pet.joins(:application_pets).where(application_pets: {application_id: @applicant.id})
           relevant_pets.update(adoptable: false)
       elsif @applicant.cumulative_status_denied
-          @applicant.status = 3
+          @applicant.update! status:3
       end 
     end
 
