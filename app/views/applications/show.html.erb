@@ -1,6 +1,6 @@
 <section>
   <header>
-    <h2>Applicant Information</h2>
+    <h2>Your Information</h2>
   </header>
 
   <%@pets_show%>
@@ -12,9 +12,10 @@
 
   <p>Status of Application: <%= @applicant.status.gsub("_", " ")%>
 </section>
+
 <section>
-  <%if @random == nil%>
-  <h3>Add a Pet to this Application</h3>
+  <%if @applicant.status == "In Progress"%>
+  <h3>Search for a pet to apply to your application (full or parial name)</h3>
   <%= form_with url: "/applications/#{@applicant.id}", method: :get, local: true do |form| %>
     <%= form.text_field :search %> 
     <%= form.hidden_field :applicant_id, value: @applicant.id%>
@@ -31,37 +32,33 @@
     <% end %>
   <% end %>
 
-
-
-  <% if @adoptable_pets != nil %>
+  <% if @applicant.pets != nil %>
     <h3> Adoption Requests</h3>
-      <% @adoptable_pets.each do |adopted| %>
+      <% @applicant.pets.each do |adopted| %>
         <%= adopted.name %> <br>
       <% end %>
     <% end %>
 
 
-  <% if @adoptable_pets_2 != []%>
+  <% if @applicant.pets != []%>
 
     <h4>Pending pets you would like to adopt:</h4>
 
-        <% @adoptable_pets_2.each do |adopted| %>
+        <% @applicant.pets.each do |adopted| %>
         <%= adopted.name %>
         <% end %>
 
-    <% if @show_submission%>
+    <% if @applicant.status == "In Progress"%>
 
       <h4> Submit your application</h4>
 
-        <%= form_with url: "/applications/#{@applicant.id}", method: :get, local: true do |form| %>
+        <%= form_with url: "/applications/#{@applicant.id}", method: :patch, local: true do |form| %>
         <%= form.text_area :description %> 
         <%= form.submit "Submit Description" %>
         <% end %>
       
       <% end %> 
     <% end %> 
-
-
 
     <%if @indicator != nil%>
       <p>Status of application: <%@applicant.status%></p>

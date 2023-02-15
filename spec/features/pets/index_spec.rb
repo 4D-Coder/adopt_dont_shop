@@ -95,7 +95,6 @@ RSpec.describe 'the pets index' do
 
         visit "/pets"  
         click_link "Start an Application"
-        save_and_open_page
         expect(page).to have_current_path("/applications/new")
         #rest of the test is continued on the new_spec page for applications
 

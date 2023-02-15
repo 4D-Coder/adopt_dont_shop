@@ -16,13 +16,12 @@ RSpec.describe 'applications show page features' do
     context 'When I visit an applications show page' do
       it 'shows the applicants attributes' do
         visit "/applications/#{@applicant_1.id}"
-        # save_and_open_page
         expect(page).to have_content("Name: #{@applicant_1.name}")
         expect(page).to have_content("Address: #{@applicant_1.address}")
         expect(page).to have_content(@applicant_1.city)
         expect(page).to have_content(@applicant_1.state)
         expect(page).to have_content(@applicant_1.zip_code)
-        expect(page).to have_content("Status: In_Progress")
+        expect(page).to have_content("Status: In Progress")
         expect(page).to have_content("Description: #{@applicant_1.description}")
       end
       
@@ -30,10 +29,10 @@ RSpec.describe 'applications show page features' do
     end
 
     context "the application has not yet been submitted" do 
-      it "has a section on the page to 'Add a Pet to this Application'" do 
+      it "has a section on the page to 'Search for a pet to apply to your application (full or parial name)'" do 
         visit "/applications/#{@applicant_1.id}"
 
-        expect(page).to have_content("Add a Pet to this Application")
+        expect(page).to have_content("Search for a pet to apply to your application (full or parial name)")
 
       end
 
@@ -65,12 +64,12 @@ RSpec.describe 'applications show page features' do
       end 
       it "when I click the button to adopt the pet, I am taken back to the application show page and it lists that pet" do 
         visit "/applications/#{@applicant_1.id}"
-        fill_in "search", with: "Norma"
+        fill_in "search", with: "Luna"
         click_button "Search"
      
         click_button("Adopt this Pet")
         expect(current_path).to eq("/applications/#{@applicant_1.id}")
-        expect(page).to have_content("Norma")
+        expect(page).to have_content("Luna")
         expect(page).to have_content("Adoption Requests")
         expect(page).to_not have_content("Pets Returned by Search")
 
@@ -79,12 +78,12 @@ RSpec.describe 'applications show page features' do
 
       it "when I click the button to adopt the pet, I am taken back to the application show page and it lists that pet- works for multiple pets" do 
         visit "/applications/#{@applicant_1.id}"
-        fill_in "search", with: "Norma"
+        fill_in "search", with: "Norma Jean"
         click_button "Search"
      
         click_button("Adopt this Pet")
         expect(current_path).to eq("/applications/#{@applicant_1.id}")
-        expect(page).to have_content("Norma")
+        expect(page).to have_content("Norma Jean")
         expect(page).to have_content("Adoption Requests")
         expect(page).to_not have_content("Pets Returned by Search")
 
@@ -103,7 +102,7 @@ RSpec.describe 'applications show page features' do
 
       it "after checking to adopt one or more pets, I see a section to submit my application" do 
         visit "/applications/#{@applicant_1.id}"
-        fill_in "search", with: "Norma"
+        fill_in "search", with: "Luna"
         click_button "Search"
         expect(page).to_not have_content("Submit your application")
         click_button("Adopt this Pet")
@@ -114,7 +113,7 @@ RSpec.describe 'applications show page features' do
 
       it "after checking to adopt one or more pets, I see a section to submit my application" do 
         visit "/applications/#{@applicant_1.id}"
-        fill_in "search", with: "Norma"
+        fill_in "search", with: "Norma Jean"
         click_button "Search"
      
         click_button("Adopt this Pet")
@@ -128,14 +127,14 @@ RSpec.describe 'applications show page features' do
       it "after submitting the description it will show that the application is pending and will not sknow the search button nor to submit your application" do 
         visit "/applications/#{@applicant_1.id}"
         
-        fill_in "search", with: "Norma"
+        fill_in "search", with: "Norma Jean"
         click_button "Search"
      
         click_button("Adopt this Pet")
 
         fill_in "description", with: "I love cats!"
         click_button("Submit Description")
-
+        save_and_open_page
         expect(page).to have_content("Norma")
         expect(page).to_not have_button("Search")
         expect(page).to have_content("Pending")
@@ -156,11 +155,23 @@ RSpec.describe 'applications show page features' do
           fill_in "search", with: "Norm"
           click_button "Search"
 
-          save_and_open_page
+          
           
           expect(page).to have_content(@pet1.name)
           expect(page).to have_content(@pet3.name)
           expect(page).to have_content(@pet4.name)
+        end
+
+        it "the search parameters will return any full matches" do 
+          visit "/applications/#{@applicant_1.id}"
+          
+          fill_in "search", with: "Norma Jean"
+          click_button "Search"
+
+          
+        
+          expect(page).to have_content(@pet3.name)
+
         end
       end
 

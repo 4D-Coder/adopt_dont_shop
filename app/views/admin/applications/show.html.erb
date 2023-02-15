@@ -30,7 +30,8 @@
   <% if @applicant.application_pets != []%>
     <h4>Pending pets the applicant would like to adopt:</h4>
     <% @applicant.application_pets.each do |relationship_object| %>
-      <% if relationship_object.approval == 0 %> 
+
+      <% if relationship_object.approval == "No Status" %> 
 
         <%= relationship_object.pet.name %>
         <br>
@@ -43,9 +44,9 @@
 
     <% if @applicant.application_pets != []%>
       <% @applicant.application_pets.each do |application_pet| %>
-        <% if application_pet.approval == 1 %> 
+        <% if application_pet.approval == "Approved" %> 
           <br> <%="Application for #{application_pet.pet.name} is Approved."%>
-        <%elsif application_pet.approval == 2%>
+        <%elsif application_pet.approval == "Rejected"%>
           <br> <%="Application for #{application_pet.pet.name} is Denied."%>
         <%end %>
       <% end %>

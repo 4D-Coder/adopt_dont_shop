@@ -2,25 +2,18 @@ class ApplicationsController < ApplicationController
 
   def show
     @applicant = Application.find(params[:id])
-    @adoptable_pets_2 = @applicant.pets
     @show_submission = true
     if params[:search]
       @pets_show= Pet.search(params[:search])
-    elsif params[:adopt] #is create function here RESTful?
-      requested_to_adopt = Pet.find(params[:adopt])
-      ApplicationPet.create!(pet_id: requested_to_adopt.id, application_id: @applicant.id, approval: 0)
-      @adoptable_pets = @applicant.pets
-    elsif params[:description] #Ask whether update needs to go elsewhere because of REST considerations
-      @applicant.update! status:1
-      @random = false 
+    elsif params[:adopt] 
+      ApplicationPet.create_application_pet(params)
     end 
-    if @applicant.status == "Pending"
-      @show_submission = false
-    end
   end
 
-  def update!
-    require 'pry'; binding.pry
+  def update
+    @applicant = Application.find(params[:id])
+    @applicant.update! status:1
+    redirect_to "/applications/#{@applicant.id}"
   end
 
   def new
@@ -35,7 +28,6 @@ class ApplicationsController < ApplicationController
     else
       redirect_to "/applications/new"
       @errors = application.errors.messages
-
       flash[:alert] = @errors.map do |error|
         "#{error.first.capitalize} #{error.last}.".gsub(/[\["\]]/, "")
       end.join.gsub(/\./, ". ")
