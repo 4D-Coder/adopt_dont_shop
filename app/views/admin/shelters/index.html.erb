@@ -7,6 +7,7 @@
   <%= f.submit "Search" %>
 <% end %>
 
+<div id="list_shelters">
 <% @shelters.each do |shelter| %>
   <div id="shelter-<%= shelter.id %>">
     <h3><%= shelter.name %></h3>
@@ -15,12 +16,15 @@
     <%= link_to "Delete #{shelter.name}", "/shelters/#{shelter.id}", method: :delete %>
   </div>
 <% end %>
+</div>
 
+<div id="pending_applications">
 <section>
   <h3>Shelters with Pending Applications </h3>
     <%@shelters_with_pending_applications.each do |shelter| %>
       <p><%="Pending application: #{shelter.name}"%></p>
     <%end %>
+</div>
 
 
 

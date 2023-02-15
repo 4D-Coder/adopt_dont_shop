@@ -1,47 +1,22 @@
+<%= render partial: "partials/admin_header", locals: {name_to_show: @applicant.name }  %>
+
 <section>
-  <header>
-    <h2>Applicant Information</h2>
-  </header>
-
-  <%@pets_show%>
-
-  <p>Name: <%= @applicant.name %></p>
-  <p>Address: <%= @applicant.address%> <%=@applicant.city%> <%=@applicant.state%> <%=@applicant.zip_code%></p>
-  <p>Description: <%= @applicant.description %></p>
-
-  <p>Status of Application: <%= @applicant.status %>
-</section>
-<section>
-  <% if @pets_show != nil%>  
-  <h3> Pets Returned by Search </h3>
-    <%@pets_show.each do |pet|%>
-      <%= pet.name %>
-      <%= button_to "Adopt this Pet", "/application_pets", params: {adopt: "#{pet.id}"}, method: :post %>
-      <%# <%= button_to "Adopt this Pet", "/applications/#{@applicant.id}", params: {adopt: "#{pet.id}"}, method: :post %> %>
-    <% end %>
-  <% end %>
-  <% if @adoptable_pets != nil %>
-    <h3> Adoption Requests</h3>
-      <% @adoptable_pets.each do |adopted| %>
-        <%= adopted.name %> <br>
-      <% end %>
-    <% end %>
-
 
   <% if @applicant.application_pets != []%>
     <h4>Pending pets the applicant would like to adopt:</h4>
     <% @applicant.application_pets.each do |relationship_object| %>
 
+    <div id="animal_iteration">
       <% if relationship_object.approval == "No Status" %> 
-
         <%= relationship_object.pet.name %>
         <br>
         <br>
         <%= button_to "Approve Application for #{relationship_object.pet.name}", "/admin/application_pets/#{@applicant.id}", params: {approval: "approved", pet_id: "#{relationship_object.pet_id}"}, method: :patch %>
 
         <%= button_to "Deny Application for #{relationship_object.pet.name}", "/admin/application_pets/#{@applicant.id}", params: {approval: "denied", pet_id: "#{relationship_object.pet_id}"}, method: :patch %>
-      <%end%>
-    <% end %>
+        <%end%>
+      <% end %>
+    </div>
 
     <% if @applicant.application_pets != []%>
       <% @applicant.application_pets.each do |application_pet| %>
@@ -54,7 +29,4 @@
     <% end %> 
   <% end %> 
 
-    <%if @indicator != nil%>
-      <p>Status of application: <%@applicant.status%></p>
-    <%end %>
 </section>
