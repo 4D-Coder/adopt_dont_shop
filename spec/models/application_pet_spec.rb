@@ -37,10 +37,9 @@ RSpec.describe ApplicationPet, type: :model do
     describe "self.find_application_pet_from_ids(params)" do 
       it "can find the relevant application_pet from the pet_id and the application_id passed through as parameters" do 
         create_params = {adopt: @pet1.id, id: @applicant_1.id}
-
         created_pet = ApplicationPet.create_application_pet(create_params)
-        find_params = {application_id: @applicant_1.id, pet_id: created_pet.pet_id}
-        
+        find_params = {id: @applicant_1.id, pet_id: created_pet.pet_id}
+
         expect(ApplicationPet.find_application_pet_from_ids(find_params)).to eq(created_pet)
       end
     end

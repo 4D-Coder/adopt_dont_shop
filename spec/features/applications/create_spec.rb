@@ -24,7 +24,6 @@ RSpec.describe 'applications new page features' do
         visit "/pets"  
 
         click_link "Start an Application"
-        # save_and_open_page
         fill_in "Name", with: "Hady"
         fill_in "address", with: "1133 Lemon Drive"
         fill_in "City", with: "Melbourne"

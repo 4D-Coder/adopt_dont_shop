@@ -134,7 +134,6 @@ RSpec.describe 'applications show page features' do
 
         fill_in "description", with: "I love cats!"
         click_button("Submit Description")
-        save_and_open_page
         expect(page).to have_content("Norma")
         expect(page).to_not have_button("Search")
         expect(page).to have_content("Pending")
