@@ -10,6 +10,5 @@ class ApplicationPet < ApplicationRecord
 
   def self.find_application_pet_from_ids(params)
     find_by(pet_id: params[:pet_id], application_id: params[:id])
-    # used to be id, now it's application id
   end
 end
