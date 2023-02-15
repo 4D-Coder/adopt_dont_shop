@@ -1,17 +1,4 @@
-<section>
-  <header>
-    <h2>Your Information</h2>
-  </header>
-
-  <%@pets_show%>
-
-  <p>Name: <%= @applicant.name %></p>
-  <p>Address: <%= @applicant.address%> <%=@applicant.city%> <%=@applicant.state%> <%=@applicant.zip_code%></p>
-  <p>Status: <%= @applicant.status %></p>
-  <p>Description: <%= @applicant.description %></p>
-
-  <p>Status of Application: <%= @applicant.status.gsub("_", " ")%>
-</section>
+<%= render partial: "partials/admin_header", locals: {name_to_show: "Your" }  %>
 
 <section>
   <%if @applicant.status == "In Progress"%>
@@ -24,13 +11,14 @@
   <% end %>
 
   <% if @pets_show != nil%>  
+  <div id= "pets_returned_by_search">
   <h3> Pets Returned by Search </h3>
     <%@pets_show.each do |pet|%>
       <%= pet.name %>
       <%= button_to "Adopt this Pet", "/applications/#{@applicant.id}", params: {adopt: "#{pet.id}"}, method: :get %>
-       <%# local: true %>
     <% end %>
   <% end %>
+  </div>
 
   <% if @applicant.pets != nil %>
     <h3> Adoption Requests</h3>
@@ -60,7 +48,4 @@
       <% end %> 
     <% end %> 
 
-    <%if @indicator != nil%>
-      <p>Status of application: <%@applicant.status%></p>
-    <%end %>
 </section>
