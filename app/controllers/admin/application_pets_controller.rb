@@ -10,5 +10,10 @@ module Admin
 
       redirect_to "/admin/applications/#{params[:id]}?"
     end
+
+    def create
+      created_application_pet = ApplicationPet.create_application_pet(params)
+      redirect_to "/applications/#{@applicant.id}"
+    end
   end
 end

@@ -16,7 +16,8 @@
   <h3> Pets Returned by Search </h3>
     <%@pets_show.each do |pet|%>
       <%= pet.name %>
-      <%= button_to "Adopt this Pet", "/applications/#{@applicant.id}", params: {adopt: "#{pet.id}"}, method: :get %>
+      <%= button_to "Adopt this Pet", "/application_pets", params: {adopt: "#{pet.id}"}, method: :post %>
+      <%# <%= button_to "Adopt this Pet", "/applications/#{@applicant.id}", params: {adopt: "#{pet.id}"}, method: :post %> %>
     <% end %>
   <% end %>
   <% if @adoptable_pets != nil %>
