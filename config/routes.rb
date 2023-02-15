@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   
   namespace :admin do
     get '/applications/:id', to: 'applications#show'
+    post '/application_pets', to: 'application_pets#create'
     patch '/application_pets/:id', to: 'application_pets#update'
     get '/shelters', to: 'shelters#index'
     get '/shelters/new', to: 'shelters#new'
