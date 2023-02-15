@@ -1,16 +1,5 @@
-<section>
-  <header>
-    <h2>Applicant Information</h2>
-  </header>
+<%= render partial: "partials/admin_header", locals: {name_to_show: @applicant.name }  %>
 
-  <%@pets_show%>
-
-  <p>Name: <%= @applicant.name %></p>
-  <p>Address: <%= @applicant.address%> <%=@applicant.city%> <%=@applicant.state%> <%=@applicant.zip_code%></p>
-  <p>Description: <%= @applicant.description %></p>
-
-  <p>Status of Application: <%= @applicant.status %>
-</section>
 <section>
   <% if @pets_show != nil%>  
   <h3> Pets Returned by Search </h3>

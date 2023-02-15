@@ -1,0 +1,16 @@
+<section>
+  <header>
+    <h2><%=name_to_show%> Information</h2>
+  </header>
+
+
+  <%@pets_show%>
+
+
+
+  <p>Name: <%= @applicant.name %></p>
+  <p>Address: <%= @applicant.address%> <%=@applicant.city%> <%=@applicant.state%> <%=@applicant.zip_code%></p>
+  <p>Description: <%= @applicant.description %></p>
+
+  <p>Status of Application: <%= @applicant.status %>
+</section>
