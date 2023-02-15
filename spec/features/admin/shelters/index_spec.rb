@@ -20,12 +20,15 @@ RSpec.describe 'the Admin Shelters index' do
   it 'lists all the shelter names in reverse alphabetical order' do
     visit "/admin/shelters"
 
-    expect(page).to have_content(@shelter_1.name)
-    expect(page).to have_content(@shelter_2.name)
-    expect(page).to have_content(@shelter_3.name)
-    
-    expect(@shelter_2.name).to appear_before(@shelter_3.name)
-    expect(@shelter_3.name).to appear_before(@shelter_1.name)
+    within("div#list_shelters") do 
+
+      expect(page).to have_content(@shelter_1.name)
+      expect(page).to have_content(@shelter_2.name)
+      expect(page).to have_content(@shelter_3.name)
+      
+      expect(@shelter_2.name).to appear_before(@shelter_3.name)
+      expect(@shelter_3.name).to appear_before(@shelter_1.name)
+    end 
   end
 
   it 'shows a section for shelters withpending applications' do 
@@ -54,13 +57,13 @@ RSpec.describe 'the Admin Shelters index' do
     click_button("Submit Description")
 
     visit "/admin/shelters"
-    expect(page).to have_content("Shelters with Pending Applications")
 
-    expect(page).to have_content("Pending application: #{@shelter_1.name}")
-    expect(page).to have_content("Pending application: #{@shelter_3.name}")
-
-    expect(page).to_not have_content("Pending application: #{@shelter_2.name}")
-
+    within("div#pending_applications") do 
+      expect(page).to have_content("Shelters with Pending Applications")
+      expect(page).to have_content("Pending application: #{@shelter_1.name}")
+      expect(page).to have_content("Pending application: #{@shelter_3.name}")  
+      expect(page).to_not have_content("Pending application: #{@shelter_2.name}")
+    end
   end
 
   

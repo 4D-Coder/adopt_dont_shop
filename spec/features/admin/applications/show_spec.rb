@@ -47,9 +47,14 @@ RSpec.describe 'applications show page features' do
         click_button("Submit Description")
         
         visit "/admin/applications/#{@applicant_1.id}"
-
+save_and_open_page
         expect(page).to have_button("Approve Application for #{@pet2.name}")
         expect(page).to have_button("Approve Application for #{@pet3.name}")
+
+        # within("div#animal_iteration") do 
+        #   expect(page).to have_have_button("Approve Application for #{@pet2.name}")
+        #   expect(page).to have_content(@pet2.name)
+        # end 
       end
 
 

@@ -155,11 +155,11 @@ RSpec.describe 'applications show page features' do
           fill_in "search", with: "Norm"
           click_button "Search"
 
-          
-          
-          expect(page).to have_content(@pet1.name)
-          expect(page).to have_content(@pet3.name)
-          expect(page).to have_content(@pet4.name)
+          within("div#pets_returned_by_search") do 
+            expect(page).to have_content(@pet1.name)
+            expect(page).to have_content(@pet3.name)
+            expect(page).to have_content(@pet4.name)
+          end 
         end
 
         it "the search parameters will return any full matches" do 
@@ -167,15 +167,11 @@ RSpec.describe 'applications show page features' do
           
           fill_in "search", with: "Norma Jean"
           click_button "Search"
-
-          
-        
-          expect(page).to have_content(@pet3.name)
-
+          within("div#pets_returned_by_search") do 
+            expect(page).to have_content(@pet3.name)
+          end 
         end
       end
-
-
     end
   end
 end

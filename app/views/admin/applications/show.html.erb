@@ -31,16 +31,17 @@
     <h4>Pending pets the applicant would like to adopt:</h4>
     <% @applicant.application_pets.each do |relationship_object| %>
 
+    <div id="animal_iteration">
       <% if relationship_object.approval == "No Status" %> 
-
         <%= relationship_object.pet.name %>
         <br>
         <br>
         <%= button_to "Approve Application for #{relationship_object.pet.name}", "/admin/application_pets/#{@applicant.id}", params: {approval: "approved", pet_id: "#{relationship_object.pet_id}"}, method: :patch %>
 
         <%= button_to "Deny Application for #{relationship_object.pet.name}", "/admin/application_pets/#{@applicant.id}", params: {approval: "denied", pet_id: "#{relationship_object.pet_id}"}, method: :patch %>
-      <%end%>
-    <% end %>
+        <%end%>
+      <% end %>
+    </div>
 
     <% if @applicant.application_pets != []%>
       <% @applicant.application_pets.each do |application_pet| %>

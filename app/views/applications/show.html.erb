@@ -24,6 +24,7 @@
   <% end %>
 
   <% if @pets_show != nil%>  
+  <div id= "pets_returned_by_search">
   <h3> Pets Returned by Search </h3>
     <%@pets_show.each do |pet|%>
       <%= pet.name %>
@@ -31,6 +32,7 @@
        <%# local: true %>
     <% end %>
   <% end %>
+  </div>
 
   <% if @applicant.pets != nil %>
     <h3> Adoption Requests</h3>
