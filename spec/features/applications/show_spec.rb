@@ -21,7 +21,7 @@ RSpec.describe 'applications show page features' do
         expect(page).to have_content(@applicant_1.city)
         expect(page).to have_content(@applicant_1.state)
         expect(page).to have_content(@applicant_1.zip_code)
-        expect(page).to have_content("Status: In Progress")
+        expect(page).to have_content("Status of Application: In Progress")
         expect(page).to have_content("Description: #{@applicant_1.description}")
       end
       

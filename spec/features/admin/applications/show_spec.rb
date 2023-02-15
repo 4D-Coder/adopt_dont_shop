@@ -20,13 +20,14 @@ RSpec.describe 'applications show page features' do
     context 'When I visit an admin applications show page' do
       it 'shows the applicants attributes' do
         visit "/applications/#{@applicant_1.id}"
+        save_and_open_page
         
         expect(page).to have_content("Name: #{@applicant_1.name}")
         expect(page).to have_content("Address: #{@applicant_1.address}")
         expect(page).to have_content(@applicant_1.city)
         expect(page).to have_content(@applicant_1.state)
         expect(page).to have_content(@applicant_1.zip_code)
-        expect(page).to have_content("Status: In Progress")
+        expect(page).to have_content("Status of Application: In Progress")
         expect(page).to have_content("Description: #{@applicant_1.description}")
       end
 
@@ -51,10 +52,7 @@ save_and_open_page
         expect(page).to have_button("Approve Application for #{@pet2.name}")
         expect(page).to have_button("Approve Application for #{@pet3.name}")
 
-        # within("div#animal_iteration") do 
-        #   expect(page).to have_have_button("Approve Application for #{@pet2.name}")
-        #   expect(page).to have_content(@pet2.name)
-        # end 
+
       end
 
 
