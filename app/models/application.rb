@@ -10,4 +10,8 @@ class Application < ApplicationRecord
 
   enum status: ["In Progress", "Pending", "Accepted", "Rejected"]
 
+
+  def fully_approved
+    self.application_pets.where(approval:  "Approved").count = self.application_pets.count
+  end
 end 

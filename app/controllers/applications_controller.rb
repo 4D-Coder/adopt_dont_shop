@@ -33,6 +33,8 @@ class ApplicationsController < ApplicationController
       end.join.gsub(/\./, ". ")
     end 
   end
+  
+
 
   private 
   def application_params 
